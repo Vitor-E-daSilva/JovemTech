@@ -1,0 +1,6 @@
+ano = int(input("Seu ano? "))
+div4 = (ano %4 == 0 )
+div100 = (ano %100 == 0)
+div400 = (ano %400 == 0)
+bissexto = (div4 and (not div100 or div400))
+print (f"{ano} e bissexto? {bissexto}")

@@ -1,0 +1,6 @@
+peso = float(input("Seu peso? "))
+altura = float(input("Sua altura? "))
+imc = peso / (altura ** 2)
+saudavel = (imc >= 18.5) and (imc < 20)
+print (f"IMC: {imc}")
+print (f"IMC saudavel? {saudavel}")

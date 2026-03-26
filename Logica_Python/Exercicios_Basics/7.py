@@ -1,0 +1,5 @@
+numero = float(input("Seu numero? "))
+resultado = (numero >10) and (numero < 20)
+resultado2 = (not resultado)
+print (f"{numero} esta entre 10 e 20? {resultado}")
+print (F"{numero} esta fora? {resultado2}")
