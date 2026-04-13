@@ -1,110 +1,358 @@
 <!DOCTYPE html>
+<!--Project of a portfolio-->
 
 <html lang ="pt-BR">
+
+    <!--Nothig much in the head section-->
     <head>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>Curriculo - Vitor E.</title>
+        <title>Pórtifolio - Vitor E.</title>
         <link rel="stylesheet" href="style.css">
     </head>
+
+    <!--The body is very long-->
     <body>
         
+        <!--The header is going to be still and dislpay a name and a list-->
         <header>
-            <p>Portifólio WEB - Vitor E.</p>
+            <p><b></b>Portifólio WEB - Vitor E.</b></p>
             
             <nav> 
                 <ul>
-                <li><a href="#info">Principal</a></li>
-                <li><a href="#experiences">Experiência</a></li>
-                <li><a href="skills">Habilidades</a></li>
-            
-            </ul>
+                    <li><a href="#info">Principal</a></li>
+                    <li><a href="#experiences">Experiência</a></li>
+                    <li><a href="#skills">Habilidades</a></li>
+                    <li><a href="#contact">Contato</a></li>
+                </ul>
             </nav>
+
         </header>
-        
+
+        <!--Some breaks to keep the looks clean-->
+        <br>
+        <br>
+        <br>
+        <br>
 
         <main>
+            <!--Simple section with basic info-->
             <section id="info" class="info-section">
-            <img src="https://tse2.mm.bing.net/th/id/OIP.hVzdTDektrtZU2h8g2nAPwHaE9?rs=1&pid=ImgDetMain&o=7&rm=3" alt="eu">
-            <h1>Vitor Eduardo da Silva</h1>
-            <p>Desenvolvedor Full Stack Júnior</p>
-                <h2>Sobre mim</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                <article class="main-a">
+                    <!--<img src="https://tse2.mm.bing.net/th/id/OIP.hVzdTDektrtZU2h8g2nAPwHaE9?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Foto do dono do site">
+                --> <h1>Vitor Eduardo da Silva</h1>
+                    <p>Desenvolvedor Full Stack Júnior</p>
+                    <br>
+                    <h2>Sobre mim</h2>
+                    <p>Sou uma pessoa curiosa por natureza, movida pelo desejo constante de aprender e evoluir. Gosto de transformar ideias em ações e acredito que cada desafio é uma oportunidade de crescimento. Tenho facilidade em me adaptar a diferentes contextos e trabalhar em equipe, mas também valorizo momentos de foco e reflexão individual.
+                        No meu dia a dia, busco equilíbrio entre responsabilidade e leveza, cultivando hábitos que me ajudam a manter a mente criativa e o coração aberto. Acredito que empatia e comunicação clara são chaves para construir relações sólidas, seja no ambiente profissional ou pessoal.
+                        Meu objetivo é continuar explorando novas possibilidades, contribuindo de forma positiva para os projetos e pessoas com quem me conecto, sempre com autenticidade e dedicação.
+                    </p>
+                </article>
+
             </section>
             
+            <!--The following sections are boxes containing smaller boxes, they display multiple information-->
             <section id="experiences" class="experience-section">
-                <h2>Experiência</h2>
-                <div class="box" id="know-div">
-                    <article>
-                        <h3>Ensino Médio Completo</h3>
-                        <p>Centro de Excelência Professora Ofenísia Soares Freire</p>
-                    </article>
-                    <article>
-                        <h3>Ensino Superior</h3>
-                        <p>Engenharia da Computação - Universidade Federal de Sergipe(UFS) - São Cristovão</p>
-                    </article>
-                    <article>
-                        <h3>Ser preguiçoso</h3>
-                        <p>rfniurbfyubrfbyf</p>
-                    </article>
-                </div>
-                <div class="box" id="exp-div">
+                
+                <article class="main-a">
+                    <h2>Aprendizado</h2>
+                    <div class="box" id="know-div">
+
+                        <article class="sec-a click" id="know1">
+                            <h3>Ensino Médio Completo</h3>
+                            <p>Centro de Excelência Professora Ofenísia Soares Freire</p>
+                        </article>
+                    
+                        <article class="sec-a click" id="know2">
+                            <h3>Ensino Superior</h3>
+                            <p>Bacharel em Engenharia da Computação</p>
+                        </article>
+                    
+                        <article class="sec-a click" id="know3">
+                            <h3>Curso Técnico</h3>
+                            <p>Desenvolvedor FullStack</p>
+                        </article>
+
+                        <article class="sec-a click" id="know4">
+                            <h3>Curso Técnico</h3>
+                            <p>Letramento Digital</p>
+                        </article>
+
+                        <article class="sec-a click" id="know5">
+                            <h3>Curso Técnico</h3>
+                            <p>Fiscal de Loja</p>
+                        </article>
+
+                        <article class="sec-a click" id="know6">
+                            <h3>Curso Técnico</h3>
+                            <p>Gestão da Experiência do Cliente</p>
+                        </article>
+
+                    </div>
+                </article>
+
+                <article class="main-a">
+                    <div class="box" id="exp-div">
+                        <h2>Experiência</h2>
+                        <article class="sec-a click" id="exp1">
+                            <h3>Trabalho</h3>
+                            <p>Fiscal de Loja</p>
+                        </article>
+                    </div>  
+                </article>
+
+            </section>
+
+            <section id="experiencesH">
+
+                <div id="knowH">
+                        <article class="third-a hidden" id="know1b">
+                            <button class ="click" class="button" id="b1"> x </button>
+                            <h2>Ensino Médio Completo</h2>
+                            <p>Instituição: Centro de Excelência Professora Ofenísia Soares Freire</p>
+                            <p>Modalidade: Presencial/Integral</p>
+                            <p>Duração: 3 anos</p>
+                            <p>Inicio: 2020</p>
+                            <P>Conclusão: 2023</P>
+                            <p>Descrição: Ensino médio cocluido em escola de rede pública.</p>
+                        </article>
+                    
+                        <article class="third-a hidden" id="know2b">
+                            <button class ="click" class="button" id="b2">x</button>
+                            <h2>Ensino Superior</h2>
+                            <p>Engenharia da Computação </p>
+                            <p>Instituição: Universidade Federal de Sergipe(UFS) - São Cristovão</p>
+                            <p>Modalidade: Presencial/Vespertino</p>
+                            <p>Duração: Em curso</p>
+                            <p>Inico: 2026</p>
+                            <p>Conclusão: Cursando</p>
+                            <p>Descrição: Ensino Superior Iniciado em Universidade Federal.</p>
+                        </article>
+                    
+                        <article class="third-a hidden" id="know3b">
+                            <button class ="click" class="button" id="b3">x</button>
+                            <h2>Curso Técnico</h2>
+                            <p>Desenvolvedor FullStack</p>
+                            <p>Instituição: JovemTech - CajuHub - Aracaju/SE</p>
+                            <p>Modalidade: Presencial/Matutino</p>
+                            <p>Duração: Em Curso</p>
+                            <p>Inicio: 2025</p>
+                            <p>Conclusão: Cursando</p>
+                            <p>Descrição: Curso técnico em desenvolvimento através de iniciativa do Governo Federal de Sergipe em parceria com instituições privadas.</p>
+                        </article>
+
+                        <article class="third-a hidden" id="know4b">
+                            <button class ="click" class="button" id="b4">x</button>
+                            <h2>Curso Técnico</h2>
+                            <p>Letramento Digital</p>
+                            <p>Instituição: SENAI-EAD</p>
+                            <p>Modalidade: EAD</p>
+                            <p>Duração: 1 mês</p>
+                            <p>Inicio: 2026</p>
+                            <p>Conclusão: 2026</p>
+                            <p>Descrição: Curso técnico ead realizado atravéz da plataforma EAD.SENAI.</p>
+                        </article>
+
+                        <article class="third-a hidden" id="know5b">
+                            <button class ="click" class="button" id="b5">x</button>
+                            <h2>Curso Técnico</h2>
+                            <p>Fiscal de Loja</p>
+                            <p>Instituição: SENAC - Aracaju/SE</p>
+                            <p>Modalidade: Presencial/Vespertino.</p>
+                            <p>Duração: 4 meses</p>
+                            <p>Inicio: 2024</p>
+                            <p>Conclusão: 2024</p>
+                            <p>Descrição: Curso técnico em Fiscal de Loja realizado através da iniciativa Primeiro Emprego do Governo Federal de Sergipe.</p>
+                        </article>
+
+                        <article class="third-a hidden" id="know6b">
+                            <button class ="click" class="button" id="b6">x</button>
+                            <h2>Curso Técnico</h2>
+                            <p>Gestão da Experiência do Cliente: Estratégias e Práticas Inovadoras</p>
+                            <p>Instituição: SENAC - Aracaju/SE</p>
+                            <p>Modalidade: Presencial/Vespertino</p>
+                            <p>Duração: 1 mês</p>
+                            <p>Inicio: 2024</p>
+                            <p>Conclusão: 2025</p>
+                            <p>Descrição: Curso técnico em Gestão de Clientes realizado através da iniciativa Primeiro Emprego do Governo Federal de Sergipe</p>
+                        </article>
 
                 </div>
+
+                <div id="expH">
+        
+                        <article class="third-a hidden" id="exp1b">
+                            <button class ="click" class="button" id="b7">x</button>
+                            <h2>Trabalho</h2>
+                            <p>Fiscal de Loja</p>
+                            <p>Instituição: CENCOSUD-Gbarbosa - Aracaju/SE</p>
+                            <p>Modalidade: Jovem Aprendiz/Matutino</p>
+                            <p>Duração: 3 meses</p>
+                            <p>Inicio: 2024</p>
+                            <p>Saida: 2025</p>
+                            <p>Descrição: Trabalho de Jovem Aprendiz como Fiscal de Loja.</p>
+                        </article>
+                </div>
+
             </section>
 
             <section id="skills" class="skill-section">
-                <h2>Habilidades</h2>
-                <br>
-                <h2>Hard Skills</h2>
-                <div class="box" id="Hskill-div">
-                    <article>
-                        <h3>Bruh</h3>
-                        <p>Nah</p>
+                
+                <article class="main-a">
+                    <h2>Habilidades</h2>
+                    <br>
+                    <h2>Hard Skills</h2>
+                    <div class="box" id="Hskill-div">
+                        <article class="sec-a click"  id="Hskill1">
+                            <h3>Inglês</h3>
+                            <p>Nível Intermediário</p>
+                        </article>
+                    
+                        <article class="sec-a click" id="Hskill2">
+                            <h3>Programação em Python</h3>
+                            <p>Nível Básico</p>
+                        </article>
+
+                        <article class="sec-a click" id="Hskill3">
+                            <h3>Desenvolvimento WEB</h3>
+                            <p>Nível Iniciante</p>
+                        </article>
+                    
+                        <article class="sec-a click" id="Hskill4">
+                            <h3>Gestão de Clientes</h3>
+                            <p>Nivel Intermediário</p>
+                        </article>
+                    </div>
+
+                    <br>
+
+                    <h2>Soft Skills</h2>
+                    <div class="box" id="Sskill-div">
+                        <article class="sec-a click" id="Sskill1">
+                            <h3>Organização de Tarefas</h3>
+                            <p>Precisão</p>
+                        </article>
+
+                        <article class="sec-a click" id="Sskill2">
+                            <h3>Compreensividade</h3>
+                            <p>Precisão</p>
+                        </article>
+
+                         <article class="sec-a click" id="Sskill3">
+                            <h3>Autocontrole</h3>
+                            <p>Precisão</p>
+                        </article>
+                    
+                        <article class="sec-a click" id="Sskill4">
+                           <h3>Comprometimento</h3>
+                            <p>Comportamento</p>
+                        </article>
+
+                        <article class="sec-a click" id="Sskill5">
+                            <h3>Trabalho em Equipe</h3>
+                            <p>Comportamento</p>
+                        </article>
+                    </div>
+
+                </article>
+
+            </section>
+
+            <section id="skillsH">
+                <div id="HSkillH">
+                    <article class="third-a hidden"  id="Hskill1b">
+                        <button class ="click" class="button" id="b8">x</button>
+                        <h2>Inglês</h2>
+                        <p>Nível Intermediário</p>
+                        <p>Descrição: Habilidade de fala, escrita e leitura do idioma Inglês.</p>
                     </article>
-                    <article>
-                        <h2>Bruh</h2>
-                        <p>Nah</p>
+                    
+                    <article class="third-a hidden" id="Hskill2b">
+                        <button class ="click" class="button" id="b9">x</button>
+                        <h2>Programação em Python</h2>
+                        <p>Nível Básico</p>
+                        <p>Descrição: Habilidade de planejar e escrever programas usando a linguagem de programação Python</p>
                     </article>
-                    <article>
-                        <h2>Bruh</h2>
-                        <p>Nah</p>
+
+                    <article class="third-a hidden" id="Hskill3b">
+                        <button class ="click" class="button" id="b10">x</button>
+                        <h2>Desenvolvimento WEB</h2>
+                        <p>Nível Iniciante</p>
+                            <p>Descrição: Habilidade de Desenvolver sites para WEB usando HTML/CSS/JavaScript</p>
+                    </article>
+                    
+                    <article class="third-a hidden" id="Hskill4b">
+                        <button class ="click" class="button" id="b11">x</button>
+                        <h2>Gestão de Clientes</h2>
+                        <p>Nivel Intermediário</p>
+                        <p>Descrição: Habilidade de atender e gerir clientes de maneira eficiente.</p>
                     </article>
                 </div>
-                <br>
-                <h2>Soft Skills</h2>
-                <div class="box" id="Sskill-div">
-                    <article>
-                        <h3>Desenvolvimento em Python</h3>
-                        <p>aHHHHHHHHHHHhhhhhhhhhhh</p>
+
+                <div id="SskillH">
+                    <article class="third-a hidden" id="Sskill1b">
+                        <button class ="click" class="button" id="b12">x</button>
+                        <h2>Organização de Tarefas</h2>
+                        <p>Precisão</p>
+                        <p>Descrição: Habilidade de organizar tarefas para garantir conclusão rápida e eficiente.</p>
                     </article>
-                    <article>
-                        <h3>Organização de Tarefas</h3>
-                        <p>BBBBBBBBBBBbbbbbbbbbbb</p>
+
+                        
+                    <article class="third-a hidden" id="Sskill2b">
+                        <button class ="click" class="button" id="b13">x</button>
+                        <h2>Compreensividade</h2>
+                        <p>Precisão</p>
+                        <p>Descrição: Habilidade de interajir e compreender outras pessoas ou eventos adversos.</p>
                     </article>
-                    <article>
-                        <h3>Ser preguiçoso</h3>
-                        <p>rfniurbfyubrfbyf</p>
+
+                    <article class="third-a hidden" id="Sskill3b">
+                        <button class ="click" class="button" id="b14">x</button>
+                        <h2>Autocontrole</h2>
+                        <p>Precisão</p>
+                        <p>Descrição: Habilidade de manter a calma sobre pressão.</p>
+                    </article>
+                    
+                    <article class="third-a hidden" id="Sskill4b">
+                        <button class ="click" class="button" id="b15">x</button>
+                        <h2>Comprometimento</h2>
+                        <p>Comportamento</p>
+                        <p>Descrição: Habilidade de manter-se focado na conclusão de ojetivos e manutenção de responsabilidades</p>
+                    </article>
+
+                    <article class="third-a hidden" id="Sskill5b">
+                        <button class ="click" class="button" id="b16">x</button>
+                        <h2>Trabalho em Equipe</h2>
+                        <p>Comportamento</p>
+                        <p>Descrição: Habilidade de trabalhar em equipes de larga e pequena escala.</p>
                     </article>
                 </div>
             </section>
 
             <section id="contact" class="contact-section">
+                <article class="main-a">
                 <h2>Contato</h2>
                 <div class="box" id="contact-div">
-                        <img src="https://pngimg.com/uploads/github/github_PNG40.png" alt="Icone do github" class="frame-solid">
-                    
-                        <img src="https://freelogopng.com/images/all_img/1658588965instagram-logo-png-transparent-background.png" alt="Icone do instagram" class="frame-solid">
-                   
-                        <img src="https://th.bing.com/th/id/R.bb18bdbbef437b2d50518db5a8292c94?rik=cOvK7ERpnbu3Tw&riu=http%3a%2f%2fpluspng.com%2fimg-png%2femail-icon-png-download-icons-logos-emojis-email-icons-2400.png&ehk=VQKlzNVcrMc2tLSKYacLzJ9XD4bCkYGXtMrARdqSBKQ%3d&risl=&pid=ImgRaw&r=0" alt="Icone de email" class="frame-solid">
-                
+                        <a href="https://github.com/Vitor-E-daSilva" target="_blank" rel="noopener noreferrer"><img src="https://pngimg.com/uploads/github/github_PNG40.png" alt="Icone do github" class="frame-solid" id="git">
+                        </a>
+                        <a href="https://www.instagram.com/v.e.silva3007/" target="_blank" rel="noopener noreferrer"><img src="https://freelogopng.com/images/all_img/1658588965instagram-logo-png-transparent-background.png" alt="Icone do instagram" class="frame-solid" id="insta">
+                        </a>
+                        <a href="mailto:v.e.silva3007@gmail.com" target="_blank" rel="noopener noreferrer"><img src="https://th.bing.com/th/id/R.bb18bdbbef437b2d50518db5a8292c94?rik=cOvK7ERpnbu3Tw&riu=http%3a%2f%2fpluspng.com%2fimg-png%2femail-icon-png-download-icons-logos-emojis-email-icons-2400.png&ehk=VQKlzNVcrMc2tLSKYacLzJ9XD4bCkYGXtMrARdqSBKQ%3d&risl=&pid=ImgRaw&r=0" alt="Icone de email" class="frame-solid" id="email">
+                        </a>
+                        <a href="https://wa.me/5579996277307" target="_blank" rel="noopener noreferrer"><img src="https://tse4.mm.bing.net/th/id/OIP.auE7Lx6dnOoziyBbqy_GRgHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Icone do Whatsapp" class="frame-solid"></a>
+                        <a href="https://discord.com" target="_blank" rel="noopener noreferrer"><img src="https://tse4.mm.bing.net/th/id/OIP.GfTLYC8SsgGuITqP1-cBEgHaHk?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Icone do Discord" class="frame-solid"></a>
+                        <a href="https://web.telegram.org" target="_blank" rel="noopener noreferrer"><img src="https://imagepng.org/wp-content/uploads/2017/11/telegram-icone-icon.png" alt="Icone do telegram" class="frame-solid"></a>
                 </div>
+            </article>
             </section>
+
         </main>
 
         <footer>
-            <p>&copy; Vitor Eduardo da Silva. Todos os direitos reservados.</p>
+            <p>&copy; Vitor Eduardo da Silva.2026 - Todos os direitos reservados.</p>
         </footer>
 
+        <script src="script.js"></script>
     </body>
 </html>
