@@ -190,4 +190,5 @@ footer p {
   font-size: small;
   color: var(--background-color);
   text-align: center;
+  bottom: 0%;
 }
