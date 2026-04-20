@@ -58,7 +58,7 @@ alter table livros add constraint chk_preco check (preco > 0);
 create table if not exists consultas (
   id serial primary key,
   paciente varchar(100) not null,
-  medico varchar(100) references medicos(id) not null on delete restrict,
+  medico varchar(100) references medicos(id) on delete restrict,
   data_consulta timestamptz default now()
   valor numeric(1000,2) not null,
   status varchar(50) default 'agendado'
@@ -77,9 +77,68 @@ create table if not exists consultas (
 --Código corrigido 2
 create table if not exists pedidos (
   id serial primary key,
-  cliente_id integer references clientes(id) not null on delete restrict,
+  cliente_id integer references clientes(id) on delete restrict,
   total double precision,
   desconto numeric(10,2) check (desconto >= 0 and desconto <= 100),
   criado_em timestamptz default now(),
   status varchar not null default 'pendente'
 );
+
+-- Atividade dois
+create table if not exists artistas_caju (
+  id serial primary key,
+  nome varchar(100) not null unique,
+  pais varchar(50),
+  cadastro timestamptz default now()
+);
+
+create table if not exists albuns_caju (
+  id serial primary key,
+  titulo varchar(50) not null,
+  ano integer check (ano >= 1850 and ano <= 2026),
+  artista integer references artistas_caju(id) on delete restrict,
+  preco numeric(10,2) check(preco > 0)
+);
+
+create if not exists faixas_caju (
+  faixa_id serial primary key,
+  nome varchar(50) not null,
+  duracao integer not null check (duracao > 0),
+  album integer references albuns_caju(id) on delete restrict
+);
+
+alter table faixas_caju add column genero_musical varchar(50) not null check (genero_musical == 'rock' or genero_musical == 'pop' or genero_musical == 'folk' or genero_musical == 'blues');
+
+-- Aula 3
+
+--Inserindo dados
+insert into artistas_caju (nome,pais)
+values('Djavan', 'Brasil');
+
+insert into artistas_caju (nome,pais)
+values('AC/DC', 'EUA');
+
+insert into artistas_caju (nome,pais)
+values('Chico Buarque', 'Brasil');
+
+insert into artistas_caju (nome,pais)
+values('Paula Fernades', 'Brasil');
+
+--Alternativo
+insert into artistas_caju (nome,pais)
+values('Djavan', 'Brasil'),('AC/DC', 'EUA'),('Chico Buarque', 'Brasil'),('Paula Fernades', 'Brasil');
+
+-- Insert com select
+insert into artistas_caju(nome)
+select "name" From "artist" limit 3;
+
+-- Update simples
+update albuns_caju
+set preco = 34.90
+where id = 1;
+
+--Update com expressão e com returning
+update albuns_caju
+set preco = preco * 1.10
+where artistas(id) = 1;
+returning(id)
