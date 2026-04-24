@@ -142,3 +142,81 @@ update albuns_caju
 set preco = preco * 1.10
 where artistas(id) = 1;
 returning(id)
+
+
+--Testando funções usando "TRANSACTION"
+
+begin;
+
+truncate table track restart identity cascade;
+select count(*) from track
+
+rollback;
+select count(*) from track
+-- Depois deste código usamos truncate para reiniciar a tabela e em seguida preenchemos ela novamente com dados do chinhook
+
+--Testando código falho
+
+begin;
+delete from album;
+select * from album;
+
+rollback;
+
+--Testando transferencia de albuns
+
+begin;
+
+update track
+set album_id = 2
+where album_id = 1;
+
+rollback;
+commit;
+
+--Criando um insert inválido
+
+begin;
+
+insert into artist(name)
+values ('Sabrina Samira');
+
+insert into artist(artist_id,name)
+values ('1','Dudu Silva');
+
+select * from artist;
+rollback;
+
+--Criando update sem fechamento
+
+begin;
+
+update track
+set name = 'Juju'
+where track_id = 1;
+
+select * from track
+where track_id = 1
+
+--Fazendo um select detalhado
+
+select first_name, country from customer
+where "country" = 'Brazil';
+
+select name from track
+where track_id = 999;
+
+select name, milliseconds from track
+where milliseconds between 200000 and 300000;
+
+select count(*) from track
+where milliseconds between 200000 and 300000;
+
+select first_name, country from customer
+where country in ('Brazil', 'Argentina', 'Chile');
+
+select first_name, last_name from customer
+where first_name like '_____'; --"like" checa palavras iguais aos paramêtros parecidos
+
+select first_name, last_name, company from customer
+where company is null;
