@@ -220,3 +220,96 @@ where first_name like '_____'; --"like" checa palavras iguais aos paramêtros pa
 
 select first_name, last_name, company from customer
 where company is null;
+
+-- Exemplos
+select
+  name as nome,
+  composer as compositor,
+  milliseconds as tempo
+from
+  track
+select
+  sum(total) as total_faturado
+from
+  invoice
+  --Ao adicionar mais colunas a seleção acima, um erro emergirá devido ao agrupamento
+  --Exercicios
+select
+  first_name as nome,
+  last_name as sobrenome,
+  country as pais
+from
+  customer
+where
+  country in ('Brazil', 'Canada', 'France')
+order by
+  sobrenome;
+
+select
+  name as nome,
+  milliseconds as tempo
+from
+  track
+where
+  milliseconds between 240000 and 360000
+order by
+  tempo desc;
+
+select
+  name as nome,
+  composer as compositor
+from
+  track
+where
+  composer is null
+order by
+  nome asc;
+
+select
+  total,
+  invoice_date as data
+from
+  invoice
+where
+  total >= 5
+limit
+  10
+offset
+  30;
+
+--Exemplos
+select
+  sum(total) as faturamento_total,
+  round(avg(total), 2) as ticket_medio,
+  max(total) as valor_maximo,
+  min(total) as valor_minimo
+from
+  invoice;
+
+select
+  genre_id as genero,
+  count(track_id) as total_de_faixas
+from
+  track
+group by
+  genero
+having
+  count(*) > 15
+order by
+  genero
+  
+select
+  billing_country as pais_de_compra,
+  sum(total) as faturamento_total,
+  count(invoice_id) as total_faturas,
+  round(avg(total), 2) as ticket_medio
+from
+  invoice
+where
+  billing_country in ('France', 'Germany', 'Italy', 'Portugal')
+group by
+  pais_de_compra
+having
+  sum(total) > 100
+order by
+  faturamento_total desc;
