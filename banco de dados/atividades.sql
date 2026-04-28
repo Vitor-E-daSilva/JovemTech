@@ -313,3 +313,58 @@ having
   sum(total) > 100
 order by
   faturamento_total desc;
+
+--Exemplo de select
+select
+  billing_country as pais,
+  count(invoice_id) as total_faturas,
+  sum(total) as faturamento_total,
+  round(avg(total), 2) as ticket_medio
+from
+  invoice
+where
+  billing_country in (
+    'Germany',
+    'Spain',
+    'Portugal',
+    'United Kingdom',
+    'France'
+  )
+group by
+  pais
+having
+  sum(total) > 100
+order by
+  faturamento_total desc;
+
+--Exemplo com erro
+select customer_id, sum(total) as total_gasto from invoice where sum(total) > 50 group by customer_id;
+--Correção
+select customer_id, sum(total) as total_gasto from invoice group by customer_id having sum(total) > 30;
+
+--Exercicios
+--Ex. 1 e 2
+select
+  genre_id as genero,
+  count(track_id) as total,
+from track
+group by genre_id
+having count(track_id) > 100
+order by total desc;
+--Ex. 3
+select 
+  customer_id as customer,
+  count(invoice_id) as total
+from invoice
+group by customer_id
+having count(invoice_id) > 5
+order by customer;
+--Ex. 4
+select 
+  customer_id as cliente,
+  sum(total) as total,
+  round(avg(total), 2) as ticket_medio
+from invoice
+group by cliente
+having avg(total) > 5
+order by total desc;
