@@ -368,3 +368,30 @@ from invoice
 group by cliente
 having avg(total) > 5
 order by total desc;
+
+--Exemplos de inner join
+select * from track t
+inner join album al
+on t.album_id = al.album_id;
+
+select
+ t.name as musica,
+ ar.name as artista,
+ t.unit_price as preco,
+ al.title as album
+from track t
+inner join album al
+on t.album_id = al.album_id
+inner join artist ar
+on al.artist_id = ar.artist_id;
+
+select
+ ar.name as artista,
+ ar.artist_id as id,
+ count(t.track_id) as musicas
+from track t
+inner join album al
+on t.album_id = al.album_id
+inner join artist ar
+on al.artist_id = ar.artist_id
+group by artista, id;
