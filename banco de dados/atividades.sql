@@ -395,3 +395,67 @@ on t.album_id = al.album_id
 inner join artist ar
 on al.artist_id = ar.artist_id
 group by artista, id;
+
+select c.first_name, c.last_name
+from customer c
+left join invoice i
+ on c.customer_id = i.customer_id
+where invoice_id is null;
+
+--Exemplo de subquery
+select customer_id,total
+from invoice
+where total > (select avg(total) from invoice);
+
+select round(avg(total_por_clientes),2) as media
+from (select customer_id, sum(total) as total_por_clientes
+      from invoice
+      group by customer_id
+) as totais;
+
+--Exemplos de CTE
+
+with totais as (
+  select customer_id, sum(total) as total_gasto
+  from invoice
+  group by customer_id
+)
+select concat(c.first_name,' ', c.last_name) as cliente, total_gasto
+from totais t
+inner join customer c on c.customer_id = t.customer_id;
+
+--Exemplo de view
+
+create view v_sales_by_customer as 
+select
+  customer_id,
+  sum(total) as total_spent,
+  count(invoice_id) as total_purchases
+from invoice
+group by customer_id;
+
+select * from v_sales_by_customer;
+
+create or replace view v_sales_by_customer as 
+select
+  customer_id,
+  sum(total) as total_spent,
+  count(invoice_id) as total_purchases,
+  max(invoice_date) as last_purchase_date
+from invoice
+group by customer_id;
+
+drop view if exists v_sales_by_customer;
+
+--Atividade - Construção Inclemental
+-- 6
+select
+  i.invoice_id as codigo_da_fatura,
+  concat(c.first_name, ' ', c.last_name) as cliente,
+  i.total as valor 
+from invoice i
+inner join customer c 
+on c.customer_id = i.customer_id
+group by codigo_da_fatura,cliente
+order by valor desc;
+-- 7
