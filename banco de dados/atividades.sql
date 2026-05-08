@@ -448,6 +448,50 @@ group by customer_id;
 drop view if exists v_sales_by_customer;
 
 --Atividade - Construção Inclemental
+-- 1
+select 
+  concat(c.first_name, ' ', c.last_name) as cliente,
+  sum(i.total) as valor_gasto
+from customer c
+join invoice i 
+on i.customer_id = c.customer_id
+group by cliente
+order by valor_gasto desc;
+
+-- 2
+select 
+  concat(c.first_name, ' ', c.last_name) as cliente,
+  sum(i.total) as valor_gasto
+from customer c
+join invoice i 
+on i.customer_id = c.customer_id
+group by cliente
+having sum(i.total) > 40
+order by valor_gasto desc;
+
+-- 3
+select 
+  concat(c.first_name, ' ', c.last_name) as cliente,
+  round(sum(i.total) / count(i.total), 2) as valor_medio
+from customer c
+join invoice i 
+on i.customer_id = c.customer_id
+group by cliente;
+
+-- 4
+select 
+  concat(c.first_name, ' ', c.last_name) as cliente,
+  round(sum(i.total) / count(i.total), 2) as valor_medio
+  round(sum(valor_medio) / count(valor_medio)) as media_geral
+from customer c
+join invoice i 
+on i.customer_id = c.customer_id
+where valor_medio > media_geral
+group by cliente;
+
+-- 5
+
+
 -- 6
 select
   i.invoice_id as codigo_da_fatura,
