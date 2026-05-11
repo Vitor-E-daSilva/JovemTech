@@ -5,6 +5,7 @@ import heroImg from './assets/hero.png'
 import './App.css'
 import Cabecalho from './components/Cabecalho'
 import Rodape from './components/Rodape'
+import FormularioCadastro from './components/FormularioCadastro'
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
       <Cabecalho/>
       <h1>Olá, mundo!</h1>
       <p>Primeira aula de react</p>
+      <FormularioCadastro />
       <Rodape/>
     </div>
   )
