@@ -6,6 +6,7 @@ import './App.css'
 import Cabecalho from './components/Cabecalho'
 import Rodape from './components/Rodape'
 import FormularioCadastro from './components/FormularioCadastro'
+import Contador from './components/Contador'
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
       <p>Primeira aula de react</p>
       <FormularioCadastro />
       <Rodape/>
+      <Contador/>
     </div>
   )
 }
