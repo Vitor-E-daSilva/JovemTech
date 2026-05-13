@@ -16,9 +16,9 @@ function App() {
       <h1>Olá, mundo!</h1>
       <p>Primeira aula de react</p>
       <FormularioCadastro />
-      <Rodape/>
       <Contador/>
-    </div>
+      <Rodape/> 
+    </div> 
   )
 }
 
