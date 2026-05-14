@@ -1,8 +1,8 @@
 function Cabecalho() {
     return (
         <header>
-            <h1>Primeiro Componente React</h1>
-            <p>Header bonitão, ou não...</p>
+            <h1>Formulário</h1>
+            <p>um formulário</p>
         </header>
     )
 }

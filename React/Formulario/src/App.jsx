@@ -13,10 +13,11 @@ function App() {
   return (
     <div>
       <Cabecalho/>
-      <h1>Olá, mundo!</h1>
-      <p>Primeira aula de react</p>
+      <br />
       <FormularioCadastro />
+      <br />
       <Contador/>
+      <br />
       <Rodape/> 
     </div> 
   )

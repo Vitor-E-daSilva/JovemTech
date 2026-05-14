@@ -3,32 +3,51 @@ import BotaoEnviar from "./BotaoEnviar"
 import { useState } from "react";
 
 function FormularioCadastro() {
-    const [nome,setNome] = useState('')
-    const [email, setEmail] = useState('')
-    const [senha, setSenha] = useState('')
-    const [id, setId] = useState('')
-    const [erro, setErro] = useState('')
-    const [sucesso, setSucesso] = useState(false)
+    // Versão com constantes únicas para cada informação.
+    // const [nome,setNome] = useState('')
+    // const [email, setEmail] = useState('')
+    // const [senha, setSenha] = useState('')
+    // const [id, setId] = useState('')
+    // const [erro, setErro] = useState('')
+    // const [sucesso, setSucesso] = useState(false)
+    const [user, setUser] = useState({nome:"",email:"",senha:"",id:""})
+    const [verificacao, setVerificacao] = useState({erro:"",sucesso:false})
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        setSucesso(false)
-        if (nome.trim() === ''){
-            setErro('O campo Nome é obrigatório')
+        if (user.nome.trim() === ''){
+            setVerificacao((dados) => ({
+                    ...dados,
+            erro:'O campo Nome é obrigatório'}))
             return
-        } else if((email.split('.')) < 2) {
-            setErro('Endereço de email inválido!')
+        } else if((user.email.split('.').length) < 2) {
+            setVerificacao((dados) => ({
+                    ...dados,
+            erro:'Endereço de email inválido!'}))
             return
-        } else if((senha) < 8) {
-            setErro('Senha precisa ter 8 digitos!')
+        } else if(user.senha.length < 8) {
+            setVerificacao((dados) => ({
+                    ...dados,
+            erro:'Senha precisa ter 8 digitos!'}))
             return
-        } else if(id === 0) {
-            setErro('Insira um id válido!')
+        } else if(user.id === '0') {
+            setVerificacao((dados) => ({
+                    ...dados,
+            erro:'Insira um id válido!'}))
+            return
+        } else if(user.id.trim() === ''){
+            setVerificacao((dados) => ({
+                    ...dados,
+            erro:'O campo id é obrigatório!'}))
             return
         }
-        setErro('')
-        setSucesso(true)
-        console.log({nome,email,senha,id})
+        setVerificacao((dados) => ({
+                    ...dados,
+            erro:''}))
+        setVerificacao((dados) => ({
+                    ...dados,
+            sucesso:true}))
+        console.log(user)
         
         setNome('')
         setEmail('')
@@ -39,48 +58,89 @@ function FormularioCadastro() {
     return (
     <section>
         <form onSubmit={handleSubmit}>
-            {erro && <p style={{color: 'red'}}>{erro}</p>}
-            {sucesso && <p style={{color: 'green'}}>Cadastrado com sucesso!</p>}
+            {verificacao.erro && <p style={{color: 'red'}}>{verificacao.erro}</p>}
+            {verificacao.sucesso && <p style={{color: 'green'}}>Cadastrado com sucesso!</p>}
             <InputField 
                 label={"Nome : "} 
                 type={"text"} 
                 name={"nome"} 
                 placeholder={"Seu nome..."} 
-                value={nome} 
-                onChange={(e) => setNome(e.target.value)}
+                value={user.nome} 
+                onChange={(e) => {setUser((dados) => ({
+                    ...dados,
+                    nome: e.target.value
+                    })); 
+                    setVerificacao((dados) => ({
+                    ...dados,
+                    erro:''}));
+                    setVerificacao((dados) => ({
+                    ...dados,
+                    sucesso:false}))
+                }}
             />
             <InputField 
                 label={"Email : "} 
                 type={"email"} 
                 name={"email"} 
                 placeholder={"exemplo@email.com"}
-                value={email} 
-                onChange={(e) => setEmail(e.target.value)}
+                value={user.email} 
+                onChange={(e) => {setUser((dados) => ({
+                    ...dados,
+                    email: e.target.value
+                    })); 
+                    setVerificacao((dados) => ({
+                    ...dados,
+                    erro:''}));
+                    setVerificacao((dados) => ({
+                    ...dados,
+                    sucesso:false}))
+                }}
             />
            <InputField 
                 label={"Senha : "} 
                 type={"password"} 
                 name={"senha"} 
                 placeholder={"Sua senha..."} 
-                value={senha} 
-                onChange={(e) => setSenha(e.target.value)}
-                />
+                value={user.senha} 
+                onChange={(e) => {setUser((dados) => ({
+                    ...dados,
+                    senha: e.target.value
+                    })); 
+                    setVerificacao((dados) => ({
+                    ...dados,
+                    erro:''}));
+                    setVerificacao((dados) => ({
+                    ...dados,
+                    sucesso:false}))
+                }}
+            />
            <InputField 
                 label={"ID : "} 
                 type={"number"} 
                 name={"id"} 
                 placeholder={"Seu id..."}
-                value={id} 
-                onChange={(e) => setId(e.target.value)}
-                />
-
+                value={user.id} 
+                onChange={(e) => {setUser((dados) => ({
+                    ...dados,
+                    id: e.target.value
+                    })); 
+                    setVerificacao((dados) => ({
+                    ...dados,
+                    erro:''}));
+                    setVerificacao((dados) => ({
+                    ...dados,
+                    sucesso:false}))
+                }}
+            />
+            <br />
            <BotaoEnviar texto={"Enviar"}/>
         </form>
 
         <div>
-            <p>Nome de Usuário : {nome}</p>
-            <p>Email : {email}</p>
-            <p>ID : {id}</p>
+            <br />
+            <p>Nome de Usuário : {user.nome}</p>
+            <p>Email : {user.email}</p>
+            <p>ID : {user.id}</p>
         </div>
     </section>
     )
