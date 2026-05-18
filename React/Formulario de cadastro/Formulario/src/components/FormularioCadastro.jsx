@@ -1,6 +1,6 @@
 import InputField from "./InputField"
 import BotaoEnviar from "./BotaoEnviar"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function FormularioCadastro() {
     // Versão com constantes únicas para cada informação.
@@ -12,9 +12,21 @@ function FormularioCadastro() {
     // const [sucesso, setSucesso] = useState(false)
     const [user, setUser] = useState({nome:"",email:"",senha:"",id:""})
     const [verificacao, setVerificacao] = useState({erro:"",sucesso:false})
+    const [registros,setRegistros] = useState('')
 
-    const handleSubmit = (e) => {
+    const buscarRegistros = async (e) => {
+        const resposta = await fetch('http://localhost:3000/registros')
+        const dados = await resposta.json()
+        setRegistros(dados)
+    }
+
+    const handlerSubmit = async (e) => {
         e.preventDefault()
+
+        setVerificacao((dados) => ({
+                    ...dados,
+            sucesso:false}))
+
         if (user.nome.trim() === ''){
             setVerificacao((dados) => ({
                     ...dados,
@@ -41,6 +53,20 @@ function FormularioCadastro() {
             erro:'O campo id é obrigatório!'}))
             return
         }
+
+        try {
+            const reposta = await fetch('http://localhost:3000/registros', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(user)
+            })
+            const resultado = await reposta.json()
+            console.log(resultado)
+
+        } catch (error){
+            console.log('Erro ao conectar ao servidor ', error)
+        }
+
         setVerificacao((dados) => ({
                     ...dados,
             erro:''}))
@@ -49,15 +75,20 @@ function FormularioCadastro() {
             sucesso:true}))
         console.log(user)
         
-        setNome('')
-        setEmail('')
-        setSenha('')
-        setId('')
+        setUser({nome:"",email:"",senha:"",id:""})
     }
+
+    useEffect(() => {
+    // fetch('http://localhost:3000/registros')
+    // .then(res => res.json())
+    // .then(dados => console.log(dados))
+    buscarRegistros()
+
+    }, [])
 
     return (
     <section>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handlerSubmit}>
             {verificacao.erro && <p style={{color: 'red'}}>{verificacao.erro}</p>}
             {verificacao.sucesso && <p style={{color: 'green'}}>Cadastrado com sucesso!</p>}
             <InputField 

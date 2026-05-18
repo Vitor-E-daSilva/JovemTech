@@ -1,5 +1,9 @@
-import express from 'express';
+import express from 'express'
+import cors from 'cors'
+
+
 const servidor = express()
+servidor.use(cors())
 servidor.use(express.json())
 
 const registros = [] // "DB" em tempo de execução
@@ -15,6 +19,8 @@ servidor.post('/registros', (req, res) => {
         O que tem no corpo que o front end me mandou : ${dados}`)
     registros.push(dados) // simulando salvar dados no banco
 
+
+
     res.status(201).json({
         sucesso: true,
         mensagem: "Registro Criado Com Sucesso!",
@@ -25,6 +31,13 @@ servidor.post('/registros', (req, res) => {
 
 servidor.get("/registros", (req, res) => (
     res.status(200).json(registros)
+))
+
+servidor.get("/", (req,res) => (
+    res.status(200).json({
+        mensagem: "Vamos nessa, Servidor no ar BEBE!",
+        status: "ok 100%"
+    })
 ))
 
 servidor.listen(3000, () =>{
