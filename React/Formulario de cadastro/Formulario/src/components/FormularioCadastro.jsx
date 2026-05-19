@@ -18,6 +18,7 @@ function FormularioCadastro() {
         const resposta = await fetch('http://localhost:3000/registros')
         const dados = await resposta.json()
         setRegistros(dados)
+        
     }
 
     const handlerSubmit = async (e) => {
@@ -65,6 +66,7 @@ function FormularioCadastro() {
 
         } catch (error){
             console.log('Erro ao conectar ao servidor ', error)
+            return
         }
 
         setVerificacao((dados) => ({
@@ -76,6 +78,7 @@ function FormularioCadastro() {
         console.log(user)
         
         setUser({nome:"",email:"",senha:"",id:""})
+        location.reload()
     }
 
     useEffect(() => {
@@ -172,8 +175,20 @@ function FormularioCadastro() {
             <p>Nome de Usuário : {user.nome}</p>
             <p>Email : {user.email}</p>
             <p>ID : {user.id}</p>
+
+            {registros.length > 0 && (
+                <ul>
+                    {registros.map((item,index) => (
+                        <li key={index} >
+                            {index} - {item.nome} - {item.email} - {item.id}
+                        </li>
+                    ))}
+                </ul>
+            )}
         </div>
     </section>
+
+    
     )
 }
 

@@ -14,7 +14,14 @@ servidor.post('/registros', (req, res) => {
         res.status(400).json({
             erro: "Campo de nome é Obrigatório!"
         })
+        return
+    } else if(dados in registros) {
+        res.status(409).json({
+            erro: "Usuário já cadastrado"
+        })
+        return
     }
+
     console.log(`Dados da requisição!
         O que tem no corpo que o front end me mandou : ${dados}`)
     registros.push(dados) // simulando salvar dados no banco

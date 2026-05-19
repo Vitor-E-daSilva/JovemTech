@@ -1,8 +1,9 @@
 function BotaoEnviar(texto) {
     return (
     <div>
-        <input type="submit" placeholder={texto}/>
+        <input type="submit" id="botao" placeholder={texto}/>
     </div>
+    
     )
 }
 
