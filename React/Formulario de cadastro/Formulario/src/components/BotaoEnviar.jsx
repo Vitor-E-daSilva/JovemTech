@@ -1,7 +1,7 @@
-function BotaoEnviar(texto) {
+function BotaoEnviar({texto, tipo}) {
     return (
     <div>
-        <input type="submit" id="botao" placeholder={texto}/>
+        <button type={tipo}>{texto}</button>
     </div>
     
     )

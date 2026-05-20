@@ -10,7 +10,7 @@ function FormularioCadastro() {
     // const [id, setId] = useState('')
     // const [erro, setErro] = useState('')
     // const [sucesso, setSucesso] = useState(false)
-    const [user, setUser] = useState({nome:"",email:"",senha:"",id:""})
+    const [user, setUser] = useState({nome:"",email:"",senha:"",numero:""})
     const [verificacao, setVerificacao] = useState({erro:"",sucesso:false})
     const [registros,setRegistros] = useState('')
 
@@ -18,7 +18,6 @@ function FormularioCadastro() {
         const resposta = await fetch('http://localhost:3000/registros')
         const dados = await resposta.json()
         setRegistros(dados)
-        
     }
 
     const handlerSubmit = async (e) => {
@@ -28,40 +27,40 @@ function FormularioCadastro() {
                     ...dados,
             sucesso:false}))
 
-        if (user.nome.trim() === ''){
-            setVerificacao((dados) => ({
-                    ...dados,
-            erro:'O campo Nome é obrigatório'}))
-            return
-        } else if((user.email.split('.').length) < 2) {
-            setVerificacao((dados) => ({
-                    ...dados,
-            erro:'Endereço de email inválido!'}))
-            return
-        } else if(user.senha.length < 8) {
-            setVerificacao((dados) => ({
-                    ...dados,
-            erro:'Senha precisa ter 8 digitos!'}))
-            return
-        } else if(user.id === '0') {
-            setVerificacao((dados) => ({
-                    ...dados,
-            erro:'Insira um id válido!'}))
-            return
-        } else if(user.id.trim() === ''){
-            setVerificacao((dados) => ({
-                    ...dados,
-            erro:'O campo id é obrigatório!'}))
-            return
-        }
+        // if (user.nome.trim() === ''){
+        //     setVerificacao((dados) => ({
+        //             ...dados,
+        //     erro:'O campo Nome é obrigatório'}))
+        //     return
+        //} else if((user.email.split('.').length) < 2) {
+        //     setVerificacao((dados) => ({
+        //             ...dados,
+        //     erro:'Endereço de email inválido!'}))
+        //     return
+        // } else if(user.senha.length < 8) {
+        //     setVerificacao((dados) => ({
+        //             ...dados,
+        //     erro:'Senha precisa ter 8 digitos!'}))
+        //     return
+        // } else if(user.id === '0') {
+        //     setVerificacao((dados) => ({
+        //             ...dados,
+        //     erro:'Insira um id válido!'}))
+        //     return
+        // } else if(user.id.trim() === ''){
+        //     setVerificacao((dados) => ({
+        //             ...dados,
+        //     erro:'O campo id é obrigatório!'}))
+        //     return
+        //}
 
         try {
-            const reposta = await fetch('http://localhost:3000/registros', {
+            var reposta = await fetch('http://localhost:3000/registros', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(user)
             })
-            const resultado = await reposta.json()
+            var resultado = await reposta.json()
             console.log(resultado)
 
         } catch (error){
@@ -69,23 +68,42 @@ function FormularioCadastro() {
             return
         }
 
-        setVerificacao((dados) => ({
+        const erro = reposta.status
+
+        if(erro === 400){
+            const erroEspecifico = resultado.erro
+            if (erroEspecifico === 'Campo de nome é Obrigatório!' || erroEspecifico === 'Limite máximo de caracteres alcançado'){
+                setVerificacao((dados) => ({
                     ...dados,
-            erro:''}))
-        setVerificacao((dados) => ({
+            erro:'Nome inválido, deve conter entre 1-100 caracteres!'}))
+            return
+            }
+        } else if(erro === 409) {
+            setVerificacao((dados) => ({
                     ...dados,
-            sucesso:true}))
-        console.log(user)
-        
-        setUser({nome:"",email:"",senha:"",id:""})
-        location.reload()
+            erro:'Usuário já cadastrado'}))
+            return
+        } else if (erro === 200 || erro === 201){
+            buscarRegistros()
+
+            setVerificacao((dados) => ({
+                        ...dados,
+                erro:''}))
+            setVerificacao((dados) => ({
+                        ...dados,
+                sucesso:true}))
+        //console.log(user)
+            setUser({nome:"",email:"",senha:"",numero:""})
+        }
     }
+    
 
     useEffect(() => {
     // fetch('http://localhost:3000/registros')
     // .then(res => res.json())
     // .then(dados => console.log(dados))
     buscarRegistros()
+    //buscarRegistros()
 
     }, [])
 
@@ -149,11 +167,11 @@ function FormularioCadastro() {
                 }}
             />
            <InputField 
-                label={"ID : "} 
+                label={"Número : "} 
                 type={"number"} 
-                name={"id"} 
-                placeholder={"Seu id..."}
-                value={user.id} 
+                name={"numero"} 
+                placeholder={"Seu número..."}
+                value={user.numero} 
                 onChange={(e) => {setUser((dados) => ({
                     ...dados,
                     id: e.target.value
@@ -167,7 +185,8 @@ function FormularioCadastro() {
                 }}
             />
             <br />
-           <BotaoEnviar texto={"Enviar"}/>
+            {!registros && <BotaoEnviar tipo={"button"} texto={"Enviando..."}/>}
+           {registros && <BotaoEnviar tipo={"submit"} texto={"Enviar"}/>}
         </form>
 
         <div>
@@ -180,7 +199,7 @@ function FormularioCadastro() {
                 <ul>
                     {registros.map((item,index) => (
                         <li key={index} >
-                            {index} - {item.nome} - {item.email} - {item.id}
+                            {item.id} - {item.nome} - {item.email} - {item.numero}
                         </li>
                     ))}
                 </ul>
