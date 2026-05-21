@@ -47,18 +47,18 @@ servidor.post('/registros', (req, res) => {
 })
 
 servidor.get("/registros", (req, res) => {
-    const pedido = req.body
-    if (pedido) {
-    var resposta = []
-    } else { var resposta = registros
+    // const pedido = req.body
+    // if (pedido) {
+    // var resposta = []
+    // } else { 
+    // var resposta = registros
 
-    for (let user in registros) {
-        if (pedido in user){
-            resposta.push(user)
-        }
-    }}
-
-    res.status(200).json(resposta)
+    // for (let user in registros) {
+    //     if (pedido in user){
+    //         resposta.push(user)
+    //     }
+    // }}
+    res.status(200).json(registros)
 })
 
 servidor.get("/", (req,res) => (

@@ -1,6 +1,6 @@
 import InputField from "./InputField"
 import BotaoEnviar from "./BotaoEnviar"
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react" // import atualizado
 
 function FormularioCadastro() {
     // Versão com constantes únicas para cada informação.
@@ -13,6 +13,8 @@ function FormularioCadastro() {
     const [user, setUser] = useState({nome:"",email:"",senha:"",numero:""})
     const [verificacao, setVerificacao] = useState({erro:"",sucesso:false})
     const [registros,setRegistros] = useState('')
+    const nomeRef = useRef(null) //Cria referência
+
 
     const buscarRegistros = async (e) => {
         const resposta = await fetch('http://localhost:3000/registros')
@@ -99,12 +101,14 @@ function FormularioCadastro() {
     
 
     useEffect(() => {
-    // fetch('http://localhost:3000/registros')
-    // .then(res => res.json())
-    // .then(dados => console.log(dados))
-    buscarRegistros()
-    //buscarRegistros()
-
+        // fetch('http://localhost:3000/registros')
+        // .then(res => res.json())
+        // .then(dados => console.log(dados))
+        buscarRegistros()
+        //document.querySelector('input').focus()
+        console.log('ref antes do focus: ', nomeRef.current)
+        nomeRef.current.focus()
+        console.log('ref depois do focus: ', nomeRef.current)
     }, [])
 
     return (
@@ -129,7 +133,8 @@ function FormularioCadastro() {
                     ...dados,
                     sucesso:false}))
                 }}
-            />
+                inputRef = {nomeRef} // Referência a constante
+            /> 
             <InputField 
                 label={"Email : "} 
                 type={"email"} 
@@ -174,7 +179,7 @@ function FormularioCadastro() {
                 value={user.numero} 
                 onChange={(e) => {setUser((dados) => ({
                     ...dados,
-                    id: e.target.value
+                    numero: e.target.value
                     })); 
                     setVerificacao((dados) => ({
                     ...dados,
@@ -186,14 +191,14 @@ function FormularioCadastro() {
             />
             <br />
             {!registros && <BotaoEnviar tipo={"button"} texto={"Enviando..."}/>}
-           {registros && <BotaoEnviar tipo={"submit"} texto={"Enviar"}/>}
+            {registros && <BotaoEnviar tipo={"submit"} texto={"Enviar"}/>}
         </form>
 
         <div>
             <br />
             <p>Nome de Usuário : {user.nome}</p>
             <p>Email : {user.email}</p>
-            <p>ID : {user.id}</p>
+            <p>Número : {user.numero}</p>
 
             {registros.length > 0 && (
                 <ul>
@@ -204,6 +209,7 @@ function FormularioCadastro() {
                     ))}
                 </ul>
             )}
+            <button onClick={() => {nomeRef.current.value ='teste'}}>mudar nome</button>
         </div>
     </section>
 
