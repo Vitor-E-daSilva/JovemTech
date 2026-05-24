@@ -14,6 +14,7 @@ function FormularioCadastro() {
     const [verificacao, setVerificacao] = useState({erro:"",sucesso:false})
     const [registros,setRegistros] = useState('')
     const nomeRef = useRef(null) //Cria referência
+    const [indiceEditando, setIndiceEditando] = useState(null)
 
 
     const buscarRegistros = async (e) => {
@@ -57,8 +58,13 @@ function FormularioCadastro() {
         //}
 
         try {
-            var reposta = await fetch('http://localhost:3000/registros', {
-                method: 'POST',
+            const url = indiceEditando !== null
+            ?`http://localhost:3000/registros/${indiceEditando}`
+            : "http://localhost:3000/registros"
+
+            const method = indiceEditando !== null ? "PUT" : "POST"
+            var reposta = await fetch(url, {
+                method,
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(user)
             })
@@ -96,9 +102,42 @@ function FormularioCadastro() {
                 sucesso:true}))
         //console.log(user)
             setUser({nome:"",email:"",senha:"",numero:""})
+            setIndiceEditando(null)
         }
     }
     
+    const handlerDelete = async (index) => {
+        const confirmou = window.confirm('Deseja remover este registro?')
+        if (!confirmou) return
+
+        try {
+            const resposta = await fetch(`http://localhost:3000/registros/${index}`, {method: 'DELETE'})
+            if (!resposta.ok) {
+                const dados = await resposta.json()
+                setVerificacao((dados) => ({
+                    ...dados,
+                erro: dados.erro}))
+                return
+            }
+            buscarRegistros()
+        } catch {
+           setVerificacao((dados) => ({
+                    ...dados,
+                erro: "Erro ao remover."})) 
+        }
+    }
+
+    const handlerEditar = (index) => {
+        const registro = registros[index]
+
+        setUser({nome: registro.nome,
+                email: registro.email,
+                senha: registro.senha,
+                numero: registro.numero})
+        
+        setIndiceEditando(index) // Muda para modo de edição
+        nomeRef.current.focus()
+    }
 
     useEffect(() => {
         // fetch('http://localhost:3000/registros')
@@ -190,8 +229,17 @@ function FormularioCadastro() {
                 }}
             />
             <br />
-            {!registros && <BotaoEnviar tipo={"button"} texto={"Enviando..."}/>}
-            {registros && <BotaoEnviar tipo={"submit"} texto={"Enviar"}/>}
+            {!registros && <BotaoEnviar tipo={"button"} texto={"Carregando..."}/>}
+            {registros && <BotaoEnviar tipo={"submit"} texto={indiceEditando !== null ? "Atualizar" : "Cadastrar"}/>}
+        
+            {indiceEditando !== null &&(
+                <button type="button" onClick={() =>{
+                    setIndiceEditando(null)
+                    setUser({nome:"",email:"",senha:"",numero:""})
+                }}>
+                    Cancelar edição
+                </button>
+            )}
         </form>
 
         <div>
@@ -204,7 +252,18 @@ function FormularioCadastro() {
                 <ul>
                     {registros.map((item,index) => (
                         <li key={index} >
-                            {item.id} - {item.nome} - {item.email} - {item.numero}
+                           <span> {item.id} - {item.nome} - {item.email} - {item.numero}</span>
+                        
+                            <div style={{border: "2px olid #F4FF5B",
+                            borderRadius: "4px", padding: "4px",
+                            boxShadow: "0 0 10px #F4FF5B"}}>
+                                <button onClick={() => handlerEditar(index)}>
+                                    Editar
+                                </button>
+                                <button onClick= {()=> handlerDelete(index)}>
+                                    Deletar
+                                </button>
+                            </div>
                         </li>
                     ))}
                 </ul>

@@ -61,6 +61,32 @@ servidor.get("/registros", (req, res) => {
     res.status(200).json(registros)
 })
 
+servidor.delete("/registros/:id", (req, res) => {
+    const id = parseInt(req.params.id)
+
+    if (id < 0 || id >= registros.length) {
+        return res.status(404).json({erro: "Registro não encontrado!"})
+    }
+
+    registros.splice(id, 1)
+    res.status(200).json({ mensagem: "Registro removido"})
+})
+
+servidor.put("/registros/:id", (req, res) => {
+    const id = parseInt(req.params.id)
+    const dados = req.body
+
+    if (id < 0 || id >= registros.length) {
+        return res.status(404).json({erro: "Registro não encontrado!"})
+    }
+    if (!dados.nome || dados.nome.trim() === "") {
+        return res.status(400).json({erro: "Nome é obrigatório"})
+    }
+
+    registros[id] = dados
+    res.status(200).json({mensagem: "Registro Atualizado", dados: registros[id]})
+})
+
 servidor.get("/", (req,res) => (
     res.status(200).json({
         mensagem: "Vamos nessa, Servidor no ar BEBE!",
