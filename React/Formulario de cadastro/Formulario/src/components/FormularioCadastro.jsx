@@ -15,7 +15,7 @@ function FormularioCadastro() {
     const [registros,setRegistros] = useState('')
     const nomeRef = useRef(null) //Cria referência
     const [indiceEditando, setIndiceEditando] = useState(null)
-
+    const [erroForm, setErroForm] =useState('')
 
     const buscarRegistros = async (e) => {
         const resposta = await fetch('http://localhost:3000/registros')
@@ -252,7 +252,7 @@ function FormularioCadastro() {
                 <ul>
                     {registros.map((item,index) => (
                         <li key={index} >
-                           <span> {item.id} - {item.nome} - {item.email} - {item.numero}</span>
+                           <span> {index} - {item.nome} - {item.email} - {item.numero}</span>
                         
                             <div style={{border: "2px olid #F4FF5B",
                             borderRadius: "4px", padding: "4px",
