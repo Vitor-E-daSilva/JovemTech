@@ -1,12 +1,29 @@
+//Não funciona no meu celular
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View, Vibration, Alert, TouchableOpacity, Share, AppState } from 'react-native';
 import {Accelerometer} from 'expo-sensors';
 
 export default function App() {
   const [leitura, setLeitura] = useState({x: 0, y: 0, z: 0});
   const [pausa, setPausa] = useState(false);
-  const [maior, setMaior] = useState("")
+  const [maior, setMaior] = useState("");
+  const [estado, setEstado] = useState(AppState.currentState)
+
+  //Função para compartilhar dados
+  const compartilhar = async () => {
+  try {
+    await Share.share({
+      title: 'Estado dos sensores de meu dispositivo',
+      message: `Sensores:
+      Eixo X: ${leitura.x.toFixed(2)}
+      Eixo Y: ${leitura.y.toFixed(2)}
+      Eixo Z: ${leitura.z.toFixed(2)}`
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
   useEffect(() => {
     //Checa se está pausado
@@ -15,7 +32,18 @@ export default function App() {
     //100ms = 10 leituras por segundo
     Accelerometer.setUpdateInterval(50);
     //Inscreve: o sensor chama setLeitura toda vez que o valor muda 
-    const inscricao = Accelerometer.addListener(setLeitura);
+    const inscricaoA = Accelerometer.addListener(setLeitura);
+    //Inscreve: o sensor chama setEstado toda vez que o valor muda 
+    const inscricaoE = AppState.addEventListener(
+      'change',
+      (estadoAtual) => {
+        setEstado(estadoAtual);
+        if (estadoAtual === 'active') {
+          Alert.alert("Programa Pausado", "O programa foi pausado por sua saida");
+          setPausa(true)
+        }
+      }
+    );
     // Checagem do maior valor
     if (Math.abs(leitura.x) > Math.abs(leitura.y) && Math.abs(leitura.x) > Math.abs(leitura.z)) {
       setMaior("Eixo X")
@@ -24,10 +52,17 @@ export default function App() {
     } else if (Math.abs(leitura.z) > Math.abs(leitura.y) && Math.abs(leitura.z) > Math.abs(leitura.x)) {
       setMaior("Eixo Z")
     }
+
+    //Indicador de valor extremo
+    //Vibra se o valor é plano para algum eixo
+    if (leitura.x >= 1 || leitura.y >= 1 || leitura.z >= 1) {
+      Vibration.vibrate(100)
+    }
     //cleanup: cancela inscrição quando o componente sai da tela
     //sem isso o componente continua rodando mesmo invisivel
-    return () => inscricao.remove();
-  }, [pausa, maior, leitura])
+    return () => {inscricaoA.remove();
+      inscricaoE.remove()}
+  }, [pausa, maior, leitura, estado])
 
   return (
     <View style={styles.container}>
@@ -35,10 +70,18 @@ export default function App() {
       <Text style={styles.EixoX}>Eixo x: {leitura.x.toFixed(2)}</Text>
       <Text style={styles.EixoY}>Eixo y: {leitura.y.toFixed(2)}</Text>
       <Text style={styles.EixoZ}>Eixo z: {leitura.z.toFixed(2)}</Text>
-      <Button title="Parar" onPress={() => setPausa(true)}></Button>
-      <Button title="Retomar" onPress={() => setPausa(false)}></Button>
+      {/* Exemplo do botão usando o comando Button, não estava funcionando bem e foi trocado pelo  código TouchableOpacity
+       <Button style={styles.Botao} title="Parar" onPress={() => {setPausa(true);
+        Alert.alert("Tá pausado, doido!", "Você pausou o programa, tenha mais cuidado")
+      }}></Button>
+      Como pode ser visto abaixo, é muito mais versátil
+      */}
+      <TouchableOpacity style={styles.Botao} onPress={() => {setPausa(true);
+        Alert.alert("Tá pausado, doido!", "Você pausou o programa, tenha mais cuidado!")}} ><Text>Pausar</Text></TouchableOpacity>
+      <TouchableOpacity style={styles.Botao} onPress={() => setPausa(false)}><Text>Retomar</Text></TouchableOpacity>
       <Text style={styles.EixoY}>Maior valor: {maior}</Text>
-      <StatusBar style="auto" />
+      <TouchableOpacity style= {styles.Botao} onPress={compartilhar}><Text>Compartilhar</Text></TouchableOpacity>
+      <StatusBar style= {()=> {if(pausa) { return 'light'} else { return 'dark'}}} /> 
     </View>
   );
 }
@@ -70,7 +113,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10
   },
   Botao: {
-        backgroundColor: '#4CAF50',
+        backgroundColor: '#ffffff',
       paddingVertical: 12,
       paddingHorizontal: 25,
     borderRadius: 8,
