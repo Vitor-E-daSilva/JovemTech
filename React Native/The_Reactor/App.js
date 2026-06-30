@@ -1,14 +1,14 @@
 //Não funciona no meu celular
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import { Button, StyleSheet, Text, View, Vibration, Alert, TouchableOpacity, Share, AppState } from 'react-native';
+import { StyleSheet, Text, View, Vibration, Alert, TouchableOpacity, Share, AppState } from 'react-native';
 import {Accelerometer} from 'expo-sensors';
 
 export default function App() {
   const [leitura, setLeitura] = useState({x: 0, y: 0, z: 0});
   const [pausa, setPausa] = useState(false);
   const [maior, setMaior] = useState("");
-  const [estado, setEstado] = useState(AppState.currentState)
+  const [estado, setEstado] = useState(AppState.currentState);
 
   //Função para compartilhar dados
   const compartilhar = async () => {
@@ -66,7 +66,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.Titulo}>Sensor Ativo</Text>
+      <Text style={styles.Titulo}>Sensor Legal</Text>
       <Text style={styles.EixoX}>Eixo x: {leitura.x.toFixed(2)}</Text>
       <Text style={styles.EixoY}>Eixo y: {leitura.y.toFixed(2)}</Text>
       <Text style={styles.EixoZ}>Eixo z: {leitura.z.toFixed(2)}</Text>
